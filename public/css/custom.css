@@ -89,3 +89,8 @@ blockquote p:before {
 .alertify-notifier{
     color: #fff;
 }
+
+
+.badge{
+    color: #fff;
+}

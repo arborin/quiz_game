@@ -17,21 +17,21 @@
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                            <th scope="row">Number of users played the game</th>
-                            <td>{{ $user_sum }}</td>
+                            <td>Number of users played the game</td>
+                            <td class="text-danger"><strong>{{ $user_sum }}</strong></td><strong>
                         </tr>
                         <tr>
-                            <th scope="row">% of users finished the game</th>
-                            <td>{{ $finished }}</td>
+                            <td>% of users finished the game</td>
+                            <td class="text-danger"><strong>{{ $finished }}</strong></td><strong>
 
                         </tr>
                         <tr>
-                            <th scope="row">% of correct answers</th>
-                            <td>{{ $correct }}</td>
+                            <td>% of correct answers</td>
+                            <td class="text-danger"><strong>{{ $correct }}</strong></td><strong>
                         </tr>
                         <tr>
-                            <th scope="row">% of incorrect answers</th>
-                            <td>{{ $incorrect }}</td>
+                            <td>% of incorrect answers</td>
+                            <td class="text-danger"><strong>{{ $incorrect }}</strong></td><strong>
                         </tr>
                     </tbody>
                 </table>
