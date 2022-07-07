@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\StatisticController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +29,6 @@ Route::get('/questions', [QuestionController::class, 'index'])->name('questions'
 Route::post('create-question', [QuestionController::class, 'create'])->name('create.question');
 
 Route::post('delete-question', [QuestionController::class, 'destroy'])->name('delete.question');
+
+Route::get('statistic', [StatisticController::class, 'index'])->name('statistic');
 
