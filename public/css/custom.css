@@ -86,6 +86,6 @@ blockquote p:before {
 
 
 /* alertify message color */
-.alertify-notifier .ajs-message.ajs-error{
+.alertify-notifier{
     color: #fff;
 }

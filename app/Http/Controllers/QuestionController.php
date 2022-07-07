@@ -27,6 +27,11 @@ class QuestionController extends Controller
      */
     public function create(Request $request)
     {
+        $validated = $request->validate([
+            'quote' => 'required',
+            'author' => 'required',
+        ]);
+
         $question = Question::create([
             'quote'     => $request->quote,
             'author'    => $request->author,
