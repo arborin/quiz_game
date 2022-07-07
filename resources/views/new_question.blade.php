@@ -14,14 +14,15 @@
                 Add new question
             </div>
             <div class="card-body">
-                <form>
+                <form method="post" action="{{ route('create.question') }}">
+                    @csrf
                     <div class="mb-3">
                         <label for="question" class="form-label">Question <span class="text-secondary">(question)</span></label>
-                        <input type="text" class="form-control" id="question">
+                        <input type="text" class="form-control" name="quote" id="quote">
                     </div>
                     <div class="mb-3">
                         <label for="answer" class="form-label">Answer <span class="text-secondary">(author)</span></label>
-                        <input type="text" class="form-control" id="answer">
+                        <input type="text" class="form-control" name="author" id="author">
                     </div>
                     <a href="{{ route('questions') }}" class="btn btn-sm btn-secondary">Back</a>
                     <button type="submit" class="btn btn-sm btn-primary">Save</button>

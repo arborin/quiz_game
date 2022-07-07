@@ -1,5 +1,6 @@
 body{
     font-family: sans-serif;
+    overflow-y: scroll;
 }
 
 .navbar{
@@ -81,4 +82,10 @@ blockquote p:before {
 
 .mr-30{
     margin-right: 30px;
+}
+
+
+/* alertify message color */
+.alertify-notifier .ajs-message.ajs-error{
+    color: #fff;
 }

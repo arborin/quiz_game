@@ -10,10 +10,15 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ asset('css/styles.css')}}" rel="stylesheet" />
-        <link href="{{ asset('css/custom.css')}}" rel="stylesheet" />
+        <link href="{{ asset('css/alertify.css')}}" rel="stylesheet" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+        <link href="{{ asset('css/custom.css')}}" rel="stylesheet" />
 
-
+        <!-- Bootstrap core JS-->
+        {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"> --}}
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
        @include('layouts._navbar')
@@ -22,8 +27,29 @@
             @yield('content')
         </div>
         <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
         <!-- Core theme JS-->
         <script src="{{ asset('js/scripts.js') }}"></script>
+        <script src="{{ asset('js/alertify.min.js') }}"></script>
+
+        @yield('script')
+
+
+        @if(Session::has('success'))
+            <script>
+                const msg = '{{ Session::get('success') }}';
+                // console.log(msg)
+                alertify.success(msg);
+            </script>
+        @endif
+
+        @if(Session::has('error'))
+            <script>
+                const msg = '{{ Session::get('error') }}';
+                alertify.error(msg);
+            </script>
+        @endif
+
     </body>
 </html>
