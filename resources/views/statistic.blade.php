@@ -36,6 +36,38 @@
                     </tbody>
                 </table>
             </div>
+
+        </div>
+        <div class="break"></div>
+
+        <button type="button" class="btn btn-danger mt-5" data-toggle="modal" data-target="#clearRsultsModal">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Clear results
+        </button>
+
+
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="clearRsultsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Warning</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to clear quiz results?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+                        <a href="{{ route('statistic.clear') }}" class="btn btn-danger btn-sm">Yes</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

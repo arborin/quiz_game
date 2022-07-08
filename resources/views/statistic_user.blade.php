@@ -9,12 +9,12 @@
 
     <div class="text-center mt-5">
 
-        <h1 class="text-primary"><strong>Quiz Statistic</strong></h1>
+        <h1 class="text-primary"><strong>Your Results</strong></h1>
         <img src="{{ asset('images/statistic.png') }}" class="question-mark" />
 
         <div class="row d-flex justify-content-center">
             <div class="col-md-5">
-                <h1>{{ $username }}</h1>
+                <p><strong>User:</strong> {{ $username }}</p>
                 <table class="table table-bordered">
                     <tbody>
                         <tr>

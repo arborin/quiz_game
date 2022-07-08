@@ -14,42 +14,48 @@
 
     <p><strong>User:</strong> {{ $username }}</p>
 
-    <p>Question: <strong><span id="question-count">1</span></strong>/10</p>
-    <div class="quiz-content mt-5" >
-        <a href="{{ route('home') }}" class="quiz-title binary @if($type=='') active-mode @endif"><i class="fa fa-th-list" aria-hidden="true"></i></a>
-        <a href="{{ route('home', ['type' => 'multi']) }}" class="quiz-title multiply @if($type=='multi') active-mode @endif"><i class="fa fa-window-restore" aria-hidden="true"></i></a>
+    @if($question_count < 10)
+        <h3 class='text-danger'>Please add minimum 10 question, to start the quiz</h3>
+        <a href="{{ route('questions') }}" class="btn btn-primary mt-5">Add Qeustions</a>
+    @else
 
-        <div class="break"></div>
+        <p>Question: <strong><span id="question-count">1</span></strong>/10</p>
+        <div class="quiz-content mt-5" >
+            <a href="{{ route('home') }}" class="quiz-title binary @if($type=='') active-mode @endif"><i class="fa fa-th-list" aria-hidden="true"></i></a>
+            <a href="{{ route('home', ['type' => 'multi']) }}" class="quiz-title multiply @if($type=='multi') active-mode @endif"><i class="fa fa-window-restore" aria-hidden="true"></i></a>
 
-        <div class="question-title mt-5"><h4>Who said it?</h4></div>
+            <div class="break"></div>
 
-        <div class="break"></div>
+            <div class="question-title mt-5"><h4>Who said it?</h4></div>
 
-        <div class="question-binary mt-3 mb-3">
-            <blockquote><p id="question-quote">...</p></blockquote>
-        </div>
+            <div class="break"></div>
 
-        <div class="break"></div>
-
-        <div class="answer">
-
-        </div>
-
-        <div class="next-button mt-3 hide" style="width: 100%">
-            <button type="button" class="btn btn-primary" id='next-btn'>Next</button>
-        </div>
-
-        <div class="finish-button mt-3 hide" style="width: 100%">
-            <a href={{ route('statistic.user', ['username' => $username]) }} type="button" class="btn btn-success" id='next-btn'>Finish</a>
-        </div>
-
-        @if($type == '')
-            <div class="answer-buttons mt-3">
-                <button type="button" class="btn btn-success mr-30 yes-btn">Yes</button>
-                <button type="button" class="btn btn-danger no-btn">No</button>
+            <div class="question-binary mt-3 mb-3">
+                <blockquote><p id="question-quote">...</p></blockquote>
             </div>
-        @endif
-    </div>
+
+            <div class="break"></div>
+
+            <div class="answer">
+
+            </div>
+
+            <div class="next-button mt-3 hide" style="width: 100%">
+                <button type="button" class="btn btn-primary" id='next-btn'>Next</button>
+            </div>
+
+            <div class="finish-button mt-3 hide" style="width: 100%">
+                <a href={{ route('statistic.user', ['username' => $username]) }} type="button" class="btn btn-success" id='next-btn'>Finish</a>
+            </div>
+
+            @if($type == '')
+                <div class="answer-buttons mt-3">
+                    <button type="button" class="btn btn-success mr-30 yes-btn">Yes</button>
+                    <button type="button" class="btn btn-danger no-btn">No</button>
+                </div>
+            @endif
+        </div>
+    @endif
 
 @endsection
 
@@ -124,7 +130,8 @@
     const get_random_question = () =>{
         let quiz = get_cookie('quiz');
         let type = quiz['type'];
-        let url  = "random/"+type;
+        let user = '{{ $username }}';
+        let url  = 'random/' + user + '/' +type;
 
         console.log(url);
         $('.answer').empty();
@@ -134,7 +141,20 @@
             url: url,
 
             success: function(data) {
-                    update_quote(data)
+                    console.log("GET RANDOM QUESTION")
+                    console.log(data);
+                    // if it is last question
+                    if(data['question_count'] == 10){
+                        $('.finish-button').toggleClass('hide');
+                        $('.answer-buttons').addClass('hide');  // hide yes/no btns
+                        $('.next-button').addClass('hide');     // hide next btn
+                    }else{
+                        update_quote(data);
+                        document.getElementById("question-count").textContent = data['question_count']+1;
+                    }
+
+
+
                     console.log(JSON.stringify(data));
                 },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -155,7 +175,10 @@
 
         let url  = "{{ route('check.answer') }}";
 
-        let data = {name: "ASDASDASD", quote: "test 12", answer: '12', status: 'yes'}
+        let data = {name: username, quote: quote, answer: answer, status: status}
+
+        console.log(data);
+
 
         $.ajax({
             type: "POST",
@@ -166,12 +189,14 @@
 
             success: function(data) {
                     data = JSON.parse(data);
-                    if(data['question_count'] == 5){
+                    console.log("SEND ANSWER: ")
+                    console.log(data);
+                    if(data['question_count'] == 10){
                         $('.finish-button').toggleClass('hide');
-                        toggle_buttons();
+                        $('.answer-buttons').addClass('hide');  // hide yes/no btns
+                        $('.next-button').addClass('hide');     // hide next btn
                     }
 
-                    document.getElementById("question-count").textContent = data['question_count'];
                     document.getElementById("question-quote").textContent = data['message'];
                 },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -186,10 +211,13 @@
         let default_type    = '{{ $type }}';        // get question type
         let quiz            = get_cookie('quiz');   // get type from cookies
         let user_data       = {'user': user, 'type': default_type};     //
+        let all_questions   = {{ $question_count }};
 
         set_cookie(user_data);
 
-        get_random_question();
+        if(all_questions>=10){
+            get_random_question();
+        }
 
     });
 

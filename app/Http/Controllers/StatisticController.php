@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserStatistic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -50,5 +51,16 @@ class StatisticController extends Controller
             'correct'   => $user_data->correct_question_count,
             'incorrect' => $user_data->answered_question_count - $user_data->correct_question_count
         ]);
+    }
+
+
+    public function scatisticClear(){
+        UserStatistic::truncate();
+
+        $result             = [];
+        $result['status']   = 'success';
+        $result['msg']      = 'Statistic cleared';
+
+        return redirect()->route('statistic')->with($result['status'], $result['msg']);
     }
 }

@@ -8,16 +8,14 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <title>@yield('title')</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        {{-- <link href="{{ asset('css/styles.css')}}" rel="stylesheet" /> --}}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
         <link href="{{ asset('css/alertify.css')}}" rel="stylesheet" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
         <link href="{{ asset('css/custom.css')}}" rel="stylesheet" />
 
         <!-- Bootstrap core JS-->
-        {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"> --}}
         <script src="{{ asset('js/jquery.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>

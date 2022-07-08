@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\UserStatistic;
 
 use function PHPSTORM_META\type;
+use Illuminate\Support\Facades\DB;
 
 class QuestionController extends Controller
 {
@@ -97,10 +98,10 @@ class QuestionController extends Controller
     {
         $result     = [];
         $id         = $request->question_id;
+        // dd($id);
+        $question   = Question::where('id', $id)->first();
 
-        $question   = Question::whereId($id)->get();
-
-        if(!$question->isEmpty()){
+        if($question){
             $question->delete();
             $result['status']   = 'success';
             $result['msg']      = 'Quote deleted';
@@ -113,7 +114,7 @@ class QuestionController extends Controller
     }
 
 
-    public function getRandomQeustion($type = null){
+    public function getRandomQeustion($user, $type = null){
 
         # GET 4 RANDOM ANSWER IF QUESTION TYPE IS myltiply TYPE. ELSE 1 ANSWER
         $choise_count           = 1;
@@ -151,9 +152,20 @@ class QuestionController extends Controller
             }
         }
 
+        # THIS USER ALREADY UNSWERED:
+        $question_count = 0;
+        $user = UserStatistic::whereUser($user)->first();
+        if($user){
+            $question_count = $user->answered_question_count;
+        }
+
+        # SHUFFLE ANSWERS
+        shuffle($answers);
+
         return response()->json([
-           'quote'      => $question_quote,
-           'answers'    => $answers
+           'quote'          => $question_quote,
+           'answers'        => $answers,
+           'question_count' => $question_count
         ]);
     }
 }

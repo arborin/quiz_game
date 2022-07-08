@@ -23,18 +23,14 @@ Route::get('/new-question', function(){
 })->name('new-question');
 
 
-Route::get('/questions', [QuestionController::class, 'index'])->name('questions');
+Route::get('/statistic',                [StatisticController::class, 'index'])->name('statistic');
+Route::get('/statistic-user/{username}',[StatisticController::class, 'statisticUser'])->name('statistic.user');
+Route::get('/statistic-clear',          [StatisticController::class, 'scatisticClear'])->name('statistic.clear');
 
-Route::post('/create-question', [QuestionController::class, 'create'])->name('create.question');
+Route::get('/questions',                [QuestionController::class, 'index'])->name('questions');
+Route::post('/create-question',         [QuestionController::class, 'create'])->name('create.question');
+Route::post('/delete-question',         [QuestionController::class, 'destroy'])->name('delete.question');
+Route::get('/random/{user}/{type?}',    [QuestionController::class, 'getRandomQeustion'])->name('random.question');
 
-Route::post('/delete-question', [QuestionController::class, 'destroy'])->name('delete.question');
-
-Route::get('/statistic', [StatisticController::class, 'index'])->name('statistic');
-
-Route::get('/statistic-user/{username}', [StatisticController::class, 'statisticUser'])->name('statistic.user');
-
-Route::get('/random/{type?}', [QuestionController::class, 'getRandomQeustion'])->name('random.question');
-
-Route::post('/check-answer', [QuizController::class, 'checkAnswer'])->name('check.answer');
-
-Route::get('/{type?}', [QuizController::class, 'index'])->name('home');
+Route::post('/check-answer',            [QuizController::class, 'checkAnswer'])->name('check.answer');
+Route::get('/{type?}',                  [QuizController::class, 'index'])->name('home');

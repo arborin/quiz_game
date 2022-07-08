@@ -48,7 +48,7 @@
     <!-- Delete Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Warning</h5>
@@ -57,7 +57,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure?</p>
+                    Are you sure?
                 </div>
                 <div class="modal-footer">
                     <form method="post" action="{{ route("delete.question") }}">
@@ -70,6 +70,8 @@
             </div>
         </div>
     </div>
+
+
 
 
 
