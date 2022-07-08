@@ -31,6 +31,8 @@ Route::post('/delete-question', [QuestionController::class, 'destroy'])->name('d
 
 Route::get('/statistic', [StatisticController::class, 'index'])->name('statistic');
 
+Route::get('/statistic-user/{username}', [StatisticController::class, 'statisticUser'])->name('statistic.user');
+
 Route::get('/random/{type?}', [QuestionController::class, 'getRandomQeustion'])->name('random.question');
 
 Route::post('/check-answer', [QuizController::class, 'checkAnswer'])->name('check.answer');

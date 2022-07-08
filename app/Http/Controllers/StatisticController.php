@@ -35,4 +35,15 @@ class StatisticController extends Controller
             'incorrect' => ($all_answers != 0)  ? number_format($incorrect / $all_answers * 100, 2) : 0
         ]);
     }
+
+    public function statisticUser($username){
+        $user_data       = DB::table('user_statistics')->whereUser($username)->first();
+
+        return view('statistic_user', [
+            'username'  => $user_data->user,
+            'answered'  => $user_data->answered_question_count,
+            'correct'   => $user_data->correct_question_count,
+            'incorrect' => $user_data->answered_question_count - $user_data->correct_question_count
+        ]);
+    }
 }

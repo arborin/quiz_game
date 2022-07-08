@@ -88,7 +88,7 @@
     }
 
     const set_cookie = (user_data) => {
-        document.cookie = 'quiz=' + JSON.stringify(user_data);
+        document.cookie = 'quiz=' + JSON.stringify(user_data) + ';SameSite=Lax';
     }
 
     const toggle_buttons = () => {
@@ -123,6 +123,7 @@
         let url  = "random/"+type;
 
         console.log(url);
+        $('.answer').empty();
 
         $.ajax({
             type: "GET",
@@ -163,7 +164,6 @@
                     data = JSON.parse(data);
                     document.getElementById("question-count").textContent = data['question_count'];
                     document.getElementById("question-quote").textContent = data['message'];
-
                 },
             error: function(jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR.status);
@@ -186,17 +186,30 @@
 
 
     $('.yes-btn').click(function(){
-        send_answer("OIUEWOIRU", 'test 12', '12', 'yes');
+        let question_quote  = $("#question-quote").text();
+        let answer          = $(".option").text();
+        let user            = '{{ $username }}';
+
+        send_answer(user, question_quote, answer, 'yes');
         toggle_buttons();
     });
 
 
     $('.no-btn').click(function(){
-        send_answer("OIUEWOIRU", 'test 12', '12', 'yes');
+        let question_quote  = $("#question-quote").text();
+        let answer          = $(".option").text();
+        let user            = '{{ $username }}';
+
+        send_answer(user, question_quote, answer, 'no');
         toggle_buttons();
     });
 
+
     $('#next-btn').click(function(){
+
+        get_random_question();
+
+
         let default_type = '{{ $type }}';
 
         if(default_type == ''){
@@ -205,11 +218,17 @@
             toggle_options();
         }
 
-        get_random_question();
+
     });
 
     $(function() {
         $(document).on("click", '.multi-answer-option', function() {
+            let question_quote  = $("#question-quote").text();
+            let answer          = $(this).text();
+            let user            = '{{ $username }}';
+
+            send_answer(user, question_quote, answer, 'yes');
+
             toggle_options();
             // get_random_question();
         });
