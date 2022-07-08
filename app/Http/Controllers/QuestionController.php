@@ -6,6 +6,8 @@ use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use function PHPSTORM_META\type;
+
 class QuestionController extends Controller
 {
     /**
@@ -28,7 +30,7 @@ class QuestionController extends Controller
     public function create(Request $request)
     {
         $validated = $request->validate([
-            'quote' => 'required',
+            'quote' => 'required|unique:questions',
             'author' => 'required',
         ]);
 
@@ -108,5 +110,50 @@ class QuestionController extends Controller
         }
 
         return redirect()->route('questions')->with($result['status'], $result['msg']);
+    }
+
+
+    public function getRandomQeustion($type = null){
+
+        # GET 4 RANDOM ANSWER IF QUESTION TYPE IS myltiply TYPE. ELSE 1 ANSWER
+        $choise_count           = 1;
+
+        $questions              = Question::all();
+
+        $count                  = count($questions);
+        $random_index           = random_int(0, $count - 1);    # GENERATE RANDOM INDEX TO GET RUNDOM QUOTE
+        $question_quote         = $questions[$random_index]->quote;
+        $correct_answer         = $questions[$random_index]->author;
+
+        # CORRECT ANSWER ARRAY
+        $answers                = [];
+        if($type == 'multi'){
+            $answers[]          = $correct_answer;      # PROVIDES THAT CORRECT ANSWER WILL BE IN ANSWER ARRAY
+            $choise_count       = 4;                    # CHOISE COUNT
+        }
+
+        # answers array example:
+
+        # GET AVELABLE 4 OR 1 ANSWER ACCORDING THE type
+        while(count($answers) < $choise_count){
+            # FOR BETTER RANDOM
+            $rand_range = range(0, $count - 1);
+
+            shuffle($rand_range);
+
+            $random_answer_ind = $rand_range[0];  // FOR GETTING RANDOM INDEX ANSWER
+
+            $quote = $questions[$random_answer_ind]->author;
+
+            # CHECK IF ANSWER NOT EXISTS IN answer ARRAY
+            if(!in_array($quote, $answers)){
+                $answers[] = $quote;
+            }
+        }
+
+        return response()->json([
+           'quote'      => $question_quote,
+           'answers'    => $answers
+        ]);
     }
 }

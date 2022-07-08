@@ -58,6 +58,13 @@ body{
     line-height: 50px;
 }
 
+#question-quote{
+    border-left: 1px solid #9ac2fe;
+    background-color: #fbfbfb;
+    height: 80px;
+    line-height: 80px;
+}
+
 blockquote p:before {
     content: "\f10d";
     font-family: 'Fontawesome';
@@ -68,8 +75,24 @@ blockquote p:before {
 
 .answer{
     width: 100%;
-    height: 50px;
     font-weight: bold;
+}
+
+.option{
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f2f2f2;
+    min-width: 100px;
+    border-radius: 5px;
+}
+
+.multi-answer-option{
+    cursor: pointer;
+}
+.multi-answer-option:hover{
+    box-shadow: 3px 2px 5px 0px rgba(190, 185, 255, 0.75);
+    -webkit-box-shadow: 3px 2px 5px 0px rgba(190, 185, 255, 0.75);
+    -moz-box-shadow: 3px 2px 5px 0px rgba(190, 185, 255, 0.75);
 }
 
 .answer-buttons{
@@ -93,4 +116,8 @@ blockquote p:before {
 
 .badge{
     color: #fff;
+}
+
+.hide{
+    display: none;
 }

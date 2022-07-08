@@ -17,6 +17,7 @@ class StatisticController extends Controller
         $all_answers    = 0;
 
         for($i = 0; $i < $user_sum; $i++){
+            // CALCULETE HOW MANY USER ANSWERED ALL 10 QUESTIONS
             if($all_data[$i]->answered_question_count == 10){
                 $finished += 1;
             }
