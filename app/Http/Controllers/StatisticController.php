@@ -16,10 +16,6 @@ class StatisticController extends Controller
         $correct        = 0;
         $all_answers    = 0;
 
-
-
-
-
         for($i = 0; $i < $user_sum; $i++){
             if($all_data[$i]->answered_question_count == 10){
                 $finished += 1;
@@ -31,12 +27,11 @@ class StatisticController extends Controller
 
         $incorrect       = $all_answers - $correct;
 
-
         return view('statistic', [
             'user_sum'  => $user_sum,
-            'finished'  => number_format($finished / $user_sum * 100, 2),
-            'correct'   => number_format($correct / $all_answers * 100, 2),
-            'incorrect' => number_format($incorrect / $all_answers * 100, 2)
+            'finished'  => ($user_sum != 0)     ? number_format($finished / $user_sum * 100, 2) : 0,
+            'correct'   => ($all_answers != 0)  ? number_format($correct / $all_answers * 100, 2) : 0,
+            'incorrect' => ($all_answers != 0)  ? number_format($incorrect / $all_answers * 100, 2) : 0
         ]);
     }
 }
