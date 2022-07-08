@@ -39,6 +39,10 @@
             <button type="button" class="btn btn-primary" id='next-btn'>Next</button>
         </div>
 
+        <div class="finish-button mt-3 hide" style="width: 100%">
+            <a href={{ route('statistic.user', ['username' => $username]) }} type="button" class="btn btn-success" id='next-btn'>Finish</a>
+        </div>
+
         @if($type == '')
             <div class="answer-buttons mt-3">
                 <button type="button" class="btn btn-success mr-30 yes-btn">Yes</button>
@@ -162,6 +166,11 @@
 
             success: function(data) {
                     data = JSON.parse(data);
+                    if(data['question_count'] == 5){
+                        $('.finish-button').toggleClass('hide');
+                        toggle_buttons();
+                    }
+
                     document.getElementById("question-count").textContent = data['question_count'];
                     document.getElementById("question-quote").textContent = data['message'];
                 },

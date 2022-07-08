@@ -39,6 +39,11 @@ class StatisticController extends Controller
     public function statisticUser($username){
         $user_data       = DB::table('user_statistics')->whereUser($username)->first();
 
+        if($user_data == null){
+            return redirect()->route('home')->with('error', 'User not find');
+        }
+
+
         return view('statistic_user', [
             'username'  => $user_data->user,
             'answered'  => $user_data->answered_question_count,
