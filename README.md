@@ -30,7 +30,9 @@ You can add questions and correct answers, check statistics.
 - php artisan serve
 
 you can use quiz_app.sql file to insert questions in database
+or sue database seeder to generate Quote/answers
 
+- php artisan db:seed
 ## License
 
 The app is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
