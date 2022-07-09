@@ -44,11 +44,6 @@
             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Clear results
         </button>
 
-
-
-
-
-
         <!-- Modal -->
         <div class="modal fade" id="clearRsultsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">

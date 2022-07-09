@@ -17,8 +17,8 @@ class seederTableQuestion extends Seeder
     {
         for($i = 0; $i < 100; $i++){
             Question::create([
-                'quote' => 'Quote - ' . $i,
-                'author' => $i
+                'quote'     => 'Quote - ' . $i,
+                'author'    => $i
             ]);
         }
     }

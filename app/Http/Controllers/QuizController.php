@@ -22,6 +22,7 @@ class QuizController extends Controller
         ]);
     }
 
+
     public function checkAnswer(Request $request){
         $status = ['status' => 'ok'];
         // request example
